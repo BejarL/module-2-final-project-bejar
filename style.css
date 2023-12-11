@@ -49,6 +49,16 @@ body {
   margin: 10px;
   outline: none;
 }
+#options {
+  background: rgb(249, 239, 239);
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  border: none;
+  padding: 30px;
+  margin: 10px;
+  outline: none;
+}
 #add-question, #start-quiz{
   background: rgb(249, 239, 239);
   width: 200px;
