@@ -39,7 +39,7 @@ body {
   border-radius: 10px;
   padding: 30px;
 }
-#user-question, #correct-answer {
+#user-question, #correct-answer, #option1, #option2, #option3, #option4 {
   background: rgb(249, 239, 239);
   width: 100%;
   max-width: 600px;
@@ -49,17 +49,18 @@ body {
   margin: 10px;
   outline: none;
 }
-#options {
+.option-button {
   background: rgb(249, 239, 239);
   width: 100%;
   max-width: 600px;
   border-radius: 10px;
   border: none;
-  padding: 30px;
+  padding: 20px;
   margin: 10px;
   outline: none;
 }
-#add-question, #start-quiz{
+
+#add-question, #start-quiz, #result{
   background: rgb(249, 239, 239);
   width: 200px;
   border-radius: 10px;
@@ -69,7 +70,6 @@ body {
   display: block;
   cursor: pointer;
   transition: all 0.3s;
-  
  }
  #add-question:hover, #start-quiz:hover{
   background: #eaa588;

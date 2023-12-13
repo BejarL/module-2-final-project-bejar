@@ -10,11 +10,7 @@
       <div class="questions">
         <h2>Add questions</h2>
         <input type="text" id="user-question" placeholder="Enter your question">
-        <input type="text" id="option1" placeholder="Option 1">
-        <input type="text" id="option2" placeholder="Option 2">
-        <input type="text" id="option3" placeholder="Option 3">
-        <input type="text" id="option4" placeholder="Option 4">
-        <input type="number" id="correct-answer" min="1" max="4" placeholder="Correct answer number">
+        <input type="text" id="correct-answer" placeholder="Correct answer">
         <button id="add-question">Add Question</button>
         <button id="start-quiz">Start Quiz</button>
       </div>
@@ -22,11 +18,12 @@
       <div id="quiz-container" style="display: none;">
         <div id="question">Question will go here</div>
         <div id="options">
-          <button class="option-button" id="option1-btn"></button>
-          <button class="option-button" id="option2-btn"></button>
-          <button class="option-button" id="option3-btn"></button>
-          <button class="option-button" id="option4-btn"></button>
+          <button class="option-button"></button>
+          <button class="option-button"></button>
+          <button class="option-button"></button>
+          <button class="option-button"></button>
         </div>
+        <button id="next-question" style="display: none;">Next Question</button>
         <div id="result">Result will be shown here</div>
       </div>
     </div>
