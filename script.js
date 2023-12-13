@@ -1,15 +1,12 @@
-// 1. User must input questions and provides the right answer then submit
-// 2. Once submitted the user can start the quiz
-// 3. A random quiz is generated and the user is presented with four options
-// 4. If the answer is wrong the button turns red
-// 3. Once the correct answer is selected it turns green and the 'next' button appears and the user can continue
-
 class Quiz {
     constructor() {
         // State variables
         this.questions = [];
         this.currentQuestionIndex = 0;
         this.correctAnswerSelected = false;
+
+        // Load questions from storage
+        this.loadQuestionsFromStorage();
 
         // Initialize DOM elements
         this.elements = {
@@ -37,7 +34,21 @@ class Quiz {
             button.addEventListener('click', () => this.checkAnswer(button.textContent));
         });
     }
+    // Save questions to localStorage
+    saveQuestionsToStorage() {
+        
+        localStorage.setItem('quizQuestions', JSON.stringify(this.questions));
+    }
+    // Load questions from localStorage
+    loadQuestionsFromStorage() {
+        
+        const storedQuestions = localStorage.getItem('quizQuestions');
+        if (storedQuestions) {
+            this.questions = JSON.parse(storedQuestions);
+        }
+    }
 
+// 1. User must input questions and provides the right answer then submit
     addQuestion() {
         const userQuestion = this.elements.userQuestionInput.value;
         const correctAnswer = this.elements.correctAnswerInput.value;
@@ -47,11 +58,14 @@ class Quiz {
             this.elements.userQuestionInput.value = '';
             this.elements.correctAnswerInput.value = '';
             alert('Question added!');
+            
+            // Save questions after adding
+            this.saveQuestionsToStorage();
         } else {
             alert('Please enter both a question and an answer.');
         }
     }
-
+// 2. Once submitted the user can start the quiz
     startQuiz() {
         if (this.questions.length >= 4) {
             this.elements.questionsDiv.style.display = 'none';
@@ -70,7 +84,7 @@ class Quiz {
             this.endQuiz();
         }
     }
-
+// 3. A random quiz is generated and the user is presented with four options
     displayQuestion() {
         this.correctAnswerSelected = false;
         this.elements.nextQuestionButton.style.display = 'none';
@@ -104,26 +118,27 @@ class Quiz {
         }
         return array;
     }
-
+// 4. Once the correct answer is selected it turns green and the 'next' button appears and the user can continue
     checkAnswer(selectedOption) {
         let selectedButton = Array.from(this.elements.optionsButtons).find(button => button.textContent === selectedOption);
     
         if (selectedOption === this.questions[this.currentQuestionIndex].answer) {
             this.elements.resultElement.textContent = 'Correct!';
             this.correctAnswerSelected = true;
+
             // Show the next button
             this.elements.nextQuestionButton.style.display = 'block'; 
             selectedButton.style.backgroundColor = 'green';
         } else {
+// 5. If the answer is wrong the button turns red
             selectedButton.style.backgroundColor = 'red';
             this.elements.resultElement.textContent = 'Wrong answer! Try again.';
         }
     }
     
-
+    // Reset to default style
     resetOptionButtonStyles() {
         this.elements.optionsButtons.forEach(button => {
-            // Reset to default style
             button.style.backgroundColor = ''; 
         });
     }
@@ -134,6 +149,9 @@ class Quiz {
         this.elements.resultElement.textContent = '';
         this.currentQuestionIndex = 0;
         alert('Quiz ended! Start again?');
+
+        // Save questions before ending
+        this.saveQuestionsToStorage();
     }
 }
 
