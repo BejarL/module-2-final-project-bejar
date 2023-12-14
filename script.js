@@ -132,7 +132,7 @@ class Quiz {
         } else {
 // 5. If the answer is wrong the button turns red
             selectedButton.style.backgroundColor = 'red';
-            this.elements.resultElement.textContent = 'Wrong answer! Try again.';
+            // this.elements.resultElement.textContent = 'Wrong answer! Try again.';
         }
     }
     
