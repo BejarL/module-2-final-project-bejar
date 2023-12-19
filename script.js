@@ -19,14 +19,20 @@ class Quiz {
             questionElement: document.getElementById('question'),
             optionsButtons: document.querySelectorAll('.option-button'),
             resultElement: document.getElementById('result'),
-            questionsDiv: document.querySelector('.questions')
+            questionsDiv: document.querySelector('.questions'),
+            tryAgainButton: document.getElementById('try-again'),
+            quitButton: document.getElementById('quit')            
         };
+
+        this.elements.tryAgainButton.style.display = 'none';
 
         // Setup event listeners
         this.setupEventListeners();
     }
 
     setupEventListeners() {
+        this.elements.tryAgainButton.addEventListener('click', () => this.restartQuiz());
+        this.elements.quitButton.addEventListener('click', () => this.quitQuiz());
         this.elements.addQuestionButton.addEventListener('click', () => this.addQuestion());
         this.elements.startQuizButton.addEventListener('click', () => this.startQuiz());
         this.elements.nextQuestionButton.addEventListener('click', () => this.showNextQuestion());
@@ -48,7 +54,7 @@ class Quiz {
         }
     }
 
-// 1. User must input questions and provides the right answer then submit
+    // 1. User must input questions and provides the right answer then submit
     addQuestion() {
         const userQuestion = this.elements.userQuestionInput.value;
         const correctAnswer = this.elements.correctAnswerInput.value;
@@ -65,7 +71,7 @@ class Quiz {
             alert('Please enter both a question and an answer.');
         }
     }
-// 2. Once submitted the user can start the quiz
+    // 2. Once submitted the user can start the quiz
     startQuiz() {
         if (this.questions.length >= 4) {
             this.elements.questionsDiv.style.display = 'none';
@@ -84,7 +90,7 @@ class Quiz {
             this.endQuiz();
         }
     }
-// 3. A random quiz is generated and the user is presented with four options
+    // 3. A random quiz is generated and the user is presented with four options
     displayQuestion() {
         this.correctAnswerSelected = false;
         this.elements.nextQuestionButton.style.display = 'none';
@@ -117,8 +123,8 @@ class Quiz {
             [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
-    }
-// 4. Once the correct answer is selected it turns green and the 'next' button appears and the user can continue
+        }
+    // 4. Once the correct answer is selected it turns green and the 'next' button appears and the user can continue
     checkAnswer(selectedOption) {
         let selectedButton = Array.from(this.elements.optionsButtons).find(button => button.textContent === selectedOption);
     
@@ -130,30 +136,45 @@ class Quiz {
             this.elements.nextQuestionButton.style.display = 'block'; 
             selectedButton.style.backgroundColor = 'green';
         } else {
-// 5. If the answer is wrong the button turns red
+    // 5. If the answer is wrong the button turns red
             selectedButton.style.backgroundColor = 'red';
             // this.elements.resultElement.textContent = 'Wrong answer! Try again.';
         }
-    }
+        }
     
     // Reset to default style
     resetOptionButtonStyles() {
         this.elements.optionsButtons.forEach(button => {
             button.style.backgroundColor = ''; 
         });
-    }
+        }
 
     endQuiz() {
-        this.elements.quizContainer.style.display = 'none';
-        this.elements.questionsDiv.style.display = 'block';
-        this.elements.resultElement.textContent = '';
-        this.currentQuestionIndex = 0;
-        alert('Quiz ended! Start again?');
+        this.elements.tryAgainButton.style.display = 'block';
+        this.elements.nextQuestionButton.style.display = 'none';
+        this.elements.resultElement.textContent = 'Quiz ended. Try again?';
 
         // Save questions before ending
         this.saveQuestionsToStorage();
+        }
+        
+    restartQuiz() {
+        // Logic for restarting the quiz
+        this.currentQuestionIndex = 0;
+        this.startQuiz();
+        this.elements.tryAgainButton.style.display = 'none'; // Hide the Try Again button
     }
-}
+    
+    quitQuiz() {
+        // Logic for quitting the quiz
+        this.elements.quizContainer.style.display = 'none';
+         this.elements.questionsDiv.style.display = 'block';
+         this.elements.resultElement.textContent = '';
+        this.currentQuestionIndex = 0;
+        alert('Quiz ended. Thanks for playing!');
+        }
+        
+    }
 
 // Instantiate the Quiz class after DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
