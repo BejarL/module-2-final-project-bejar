@@ -1,14 +1,18 @@
 class Quiz {
     constructor() {
-        // State variables
-        this.questions = [];
-        this.currentQuestionIndex = 0;
-        this.correctAnswerSelected = false;
+        // Initializes state variables
 
-        // Load questions from storage
+        // Stores quiz questions
+        this.questions = []; 
+        // Index of the current question being displayed
+        this.currentQuestionIndex = 0; 
+        // Tracks if the correct answer was selected
+        this.correctAnswerSelected = false; 
+
+        // Load questions from the browser's localStorage
         this.loadQuestionsFromStorage();
 
-        // Initialize DOM elements
+        // Initializes DOM elements for interaction
         this.elements = {
             addQuestionButton: document.getElementById('add-question'),
             startQuizButton: document.getElementById('start-quiz'),
@@ -24,12 +28,13 @@ class Quiz {
             quitButton: document.getElementById('quit')            
         };
 
+        // Initially hides the 'Try Again' button
         this.elements.tryAgainButton.style.display = 'none';
 
-        // Setup event listeners
+        // Sets up event listeners for user interactions
         this.setupEventListeners();
     }
-
+    // Adds event listeners to buttons for handling user actions
     setupEventListeners() {
         this.elements.tryAgainButton.addEventListener('click', () => this.restartQuiz());
         this.elements.quitButton.addEventListener('click', () => this.quitQuiz());
@@ -40,38 +45,39 @@ class Quiz {
             button.addEventListener('click', () => this.checkAnswer(button.textContent));
         });
     }
-    // Save questions to localStorage
+    // Saves the current set of questions to localStorage
     saveQuestionsToStorage() {
-        
         localStorage.setItem('quizQuestions', JSON.stringify(this.questions));
     }
-    // Load questions from localStorage
+
+    // Loads questions from localStorage if available
     loadQuestionsFromStorage() {
-        
         const storedQuestions = localStorage.getItem('quizQuestions');
         if (storedQuestions) {
             this.questions = JSON.parse(storedQuestions);
         }
     }
 
-    // 1. User must input questions and provides the right answer then submit
+    // Adds a new question to the quiz
     addQuestion() {
         const userQuestion = this.elements.userQuestionInput.value;
         const correctAnswer = this.elements.correctAnswerInput.value;
 
+        // Validates input and updates the questions array
         if (userQuestion && correctAnswer) {
             this.questions.push({ question: userQuestion, answer: correctAnswer });
             this.elements.userQuestionInput.value = '';
             this.elements.correctAnswerInput.value = '';
             alert('Question added!');
             
-            // Save questions after adding
+            // Saves updated questions
             this.saveQuestionsToStorage();
         } else {
             alert('Please enter both a question and an answer.');
         }
     }
-    // 2. Once submitted the user can start the quiz
+
+    // Starts the quiz if enough questions are added
     startQuiz() {
         if (this.questions.length >= 4) {
             this.elements.questionsDiv.style.display = 'none';
@@ -82,6 +88,7 @@ class Quiz {
         }
     }
 
+    // Shows the next question in the quiz
     showNextQuestion() {
         this.currentQuestionIndex++;
         if (this.currentQuestionIndex < this.questions.length) {
@@ -90,7 +97,8 @@ class Quiz {
             this.endQuiz();
         }
     }
-    // 3. A random quiz is generated and the user is presented with four options
+
+    // Displays the current question and its options
     displayQuestion() {
         this.correctAnswerSelected = false;
         this.elements.nextQuestionButton.style.display = 'none';
@@ -103,10 +111,12 @@ class Quiz {
         });
     }
 
+    // Generates a set of options for the current question
     generateOptions(currentIndex) {
         let options = new Set();
         options.add(this.questions[currentIndex].answer);
 
+        // Adds random options from other questions
         while (options.size < 4) {
             let randomIndex = Math.floor(Math.random() * this.questions.length);
             if (randomIndex !== currentIndex) {
@@ -114,17 +124,19 @@ class Quiz {
             }
         }
 
+        // Shuffles and returns the options
         return this.shuffleArray(Array.from(options));
     }
 
+    // Function to shuffle an array
     shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
-        }
-    // 4. Once the correct answer is selected it turns green and the 'next' button appears and the user can continue
+    }
+    // Checks if the selected option is correct
     checkAnswer(selectedOption) {
         let selectedButton = Array.from(this.elements.optionsButtons).find(button => button.textContent === selectedOption);
     
@@ -132,51 +144,48 @@ class Quiz {
             this.elements.resultElement.textContent = 'Correct!';
             this.correctAnswerSelected = true;
 
-            // Show the next button
+            // Displays the 'Next' button and highlights correct answer
             this.elements.nextQuestionButton.style.display = 'block'; 
             selectedButton.style.backgroundColor = 'green';
         } else {
-    // 5. If the answer is wrong the button turns red
+            // Highlights incorrect answer
             selectedButton.style.backgroundColor = 'red';
-            // this.elements.resultElement.textContent = 'Wrong answer! Try again.';
         }
-        }
+    }
     
-    // Reset to default style
+    // Resets the styles of option buttons
     resetOptionButtonStyles() {
         this.elements.optionsButtons.forEach(button => {
             button.style.backgroundColor = ''; 
         });
-        }
-
+    }
+    // End of the quiz
     endQuiz() {
         this.elements.tryAgainButton.style.display = 'block';
         this.elements.nextQuestionButton.style.display = 'none';
         this.elements.resultElement.textContent = 'Quiz ended. Try again?';
 
-        // Save questions before ending
+        // Saves the current state of questions
         this.saveQuestionsToStorage();
-        }
-        
-    restartQuiz() {
-        // Logic for restarting the quiz
-        this.currentQuestionIndex = 0;
-        this.startQuiz();
-        this.elements.tryAgainButton.style.display = 'none'; // Hide the Try Again button
-    }
-    
-    quitQuiz() {
-        // Logic for quitting the quiz
-        this.elements.quizContainer.style.display = 'none';
-         this.elements.questionsDiv.style.display = 'block';
-         this.elements.resultElement.textContent = '';
-        this.currentQuestionIndex = 0;
-        alert('Quiz ended. Thanks for playing!');
-        }
-        
     }
 
-// Instantiate the Quiz class after DOM is loaded
+    // Restarts the quiz when the user clicks the "Try Again" button
+    restartQuiz() {
+        this.currentQuestionIndex = 0;
+        this.startQuiz();
+        this.elements.tryAgainButton.style.display = 'none';
+    }
+
+    // Quitting the quiz when the user clicks the "Quit" button
+    quitQuiz() {
+        this.elements.quizContainer.style.display = 'none';
+        this.elements.questionsDiv.style.display = 'block';
+        this.elements.resultElement.textContent = '';
+        this.currentQuestionIndex = 0;
+    }   
+}
+
+// Instantiate the Quiz class after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
     new Quiz();
 });

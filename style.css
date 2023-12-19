@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+/* Global and Basic Styles */
 * {
   margin: 0;
   padding: 0;
   font-family: 'Anton', sans-serif;
   box-sizing: border-box;
-  letter-spacing: 2px ;
+  letter-spacing: 2px;
 }
 
 body {
   background: #eac5b6;
 }
 
+/* Main Quiz App Container */
 .quiz-app {
   background: rgb(249, 239, 239);
   width: 90%;
@@ -39,6 +42,7 @@ body {
   padding: 10px;
 }
 
+/* Quiz Questions Container */
 .questions {
   background: #eac5b6;
   width: 100%;
@@ -47,12 +51,8 @@ body {
   padding: 30px;
 }
 
-#user-question,
-#correct-answer,
-#option1,
-#option2,
-#option3,
-#option4 {
+/* Quiz Elements */
+#user-question, #correct-answer, #option1, #option2, #option3, #option4, #question {
   background: rgb(249, 239, 239);
   width: 100%;
   max-width: 600px;
@@ -62,23 +62,16 @@ body {
   margin: 10px;
   outline: none;
 }
+
 #question {
   font-size: 25px;
   text-align: center;
-  background: rgb(249, 239, 239);
-  width: 100%;
   max-width: 500px;
-  border-radius: 10px;
-  border: none;
   padding: 10px;
-  margin: 10px;
-  outline: none;
 }
 
-.option-button,
-#add-question,
-#start-quiz,
-#next-question {
+/* Buttons */
+.option-button, #add-question, #start-quiz, #next-question {
   background: rgb(249, 239, 239);
   width: 200px;
   border-radius: 10px;
@@ -89,53 +82,28 @@ body {
   cursor: pointer;
   transition: all 0.3s;
 }
-
-#add-question:hover,
-#start-quiz:hover,
-#next-question:hover, .option-button:hover {
+#add-question:hover, #start-quiz:hover, #next-question:hover, .option-button:hover {
   background: #eaa588;
   color: #333;
 }
 
-/* #result {
-  text-align: center;
-  background: rgb(249, 239, 239);
-  width: 200px;
+#quit, #try-again {
+  background: #eaa588;
+  width: 100px;
   border-radius: 10px;
   border: 0;
   padding: 10px;
   margin: 20px auto 0;
   display: block;
-} */
-
-#quit {
-  background-color: #eaa588;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 12px;
-  margin: 20px auto 0;
   cursor: pointer;
   transition: all 0.3s;
 }
-#quit:hover {
-  background: white;
+#quit:hover, #try-again:hover {
+  background: rgb(249, 239, 239);
   color: #333;
 }
 
-#next-question {
-  text-align: center;
-  background: rgb(249, 239, 239);
-  width: 200px;
-  border-radius: 10px;
-  border: 0;
-  padding: 10px;
-  margin: 20px auto 0;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
+/* Quiz Container */
 #quiz-container {
   background: #eac5b6;
   max-width: 600px;
