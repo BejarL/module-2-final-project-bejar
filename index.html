@@ -13,15 +13,15 @@
         <!-- Section for adding questions -->
         <div class="questions">
             <h2>Add questions</h2>
-            <input type="text" id="user-question" placeholder="Enter your question">
-            <input type="text" id="correct-answer" placeholder="Correct answer">
+            <textarea id="user-question" placeholder="Enter your question"></textarea>
+            <textarea id="correct-answer" placeholder="Correct answer"></textarea>
             <button id="add-question">Add Question</button>
+            <button id="start-new-quiz">Start New Quiz</button>
             <button id="start-quiz">Start Quiz</button>
         </div>
 
         <!-- Quiz container -->
         <div id="quiz-container" style="display: none;">
-
             <div id="question">Question will go here</div>
             
             <!-- Options buttons -->
@@ -31,8 +31,6 @@
                 <button class="option-button"></button>
                 <button class="option-button"></button>
             </div>
-
-            <div id="result" style="display: none;"></div>
             <button id="next-question" style="display: none;">Next</button>
             <button id="quit">Quit</button>
         </div>
@@ -49,4 +47,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

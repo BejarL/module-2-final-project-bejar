@@ -8,11 +8,9 @@
   box-sizing: border-box;
   letter-spacing: 2px;
 }
-
 body {
   background: #eac5b6;
 }
-
 /* Main Quiz App Container */
 .quiz-app {
   background: rgb(249, 239, 239);
@@ -23,7 +21,6 @@ body {
   padding: 30px;
   box-shadow: 5px 5px #eaa588;
 }
-
 .quiz-app h1 {
   font-size: 50px;
   color: #d09176;
@@ -33,7 +30,6 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
-
 .quiz-app h2 {
   font-size: 30px;
   color: #635757;
@@ -41,7 +37,18 @@ body {
   text-align: center;
   padding: 10px;
 }
-
+textarea {
+  width: 100%; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 10px;
+  box-sizing: border-box; 
+  min-height: 50px; 
+  resize: vertical; 
+  margin: 10px 0; 
+  background: rgb(249, 239, 239); 
+  outline: none; 
+}
 /* Quiz Questions Container */
 .questions {
   background: #eac5b6;
@@ -50,28 +57,33 @@ body {
   border-radius: 10px;
   padding: 30px;
 }
-
 /* Quiz Elements */
+#question, .option-button {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: rgb(249, 239, 239);
+  border-radius: 10px;
+  text-align: center;
+}
 #user-question, #correct-answer, #option1, #option2, #option3, #option4, #question {
   background: rgb(249, 239, 239);
   width: 100%;
-  max-width: 600px;
   border-radius: 10px;
   border: none;
-  padding: 30px;
+  padding: 15px;  
   margin: 10px;
   outline: none;
 }
-
 #question {
   font-size: 25px;
   text-align: center;
   max-width: 500px;
   padding: 10px;
 }
-
 /* Buttons */
-.option-button, #add-question, #start-quiz, #next-question {
+.option-button, #add-question, #start-quiz, #next-question, #start-new-quiz {
   background: rgb(249, 239, 239);
   width: 200px;
   border-radius: 10px;
@@ -82,7 +94,7 @@ body {
   cursor: pointer;
   transition: all 0.3s;
 }
-#add-question:hover, #start-quiz:hover, #next-question:hover {
+#add-question:hover, #start-quiz:hover, #next-question:hover, #start-new-quiz:hover {
   background: #eaa588;
   color: #333;
 }
@@ -101,11 +113,10 @@ body {
   cursor: pointer;
   transition: all 0.3s;
 }
-#quit:hover, #try-again:hover {
+#quit:hover, #try-again:hover, #quit-end:hover {
   background: rgb(249, 239, 239);
   color: #333;
 }
-
 /* Quiz Container */
 #quiz-container {
   background: #eac5b6;
@@ -113,4 +124,37 @@ body {
   margin: 10px auto 0;
   border-radius: 10px;
   padding: 30px;
+}
+/* Responsive Design for different devices */
+@media only screen and (max-width: 600px) {
+  .quiz-app h1 {
+    font-size: 40px;
+    padding-bottom: 10px;
+  }
+  .quiz-app h2 {
+    font-size: 25px;
+  }
+  #user-question, #correct-answer, #option1, #option2, #option3, #option4, #question {
+    padding: 10px;
+  }
+  .option-button, #add-question, #start-quiz, #next-question, #try-again, #quit, #quit-end {
+    width: 150px; 
+    padding: 8px;
+    font-size: 14px; 
+  }
+}
+@media only screen and (max-width: 400px) {
+  .quiz-app {
+    margin: 50px auto 0;
+    padding: 20px;
+  }
+  .quiz-app h1 {
+    font-size: 30px;
+  }
+  .quiz-app h2 {
+    font-size: 20px;
+  }
+  #question {
+    font-size: 20px;
+  }
 }
