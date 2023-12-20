@@ -98,7 +98,7 @@ textarea {
   background: #eaa588;
   color: #333;
 }
-#final-score {
+#final-score, #timer {
   font-size: 25px;
   text-align: center;
 }

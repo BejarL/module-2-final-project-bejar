@@ -21,6 +21,9 @@ class Quiz {
         this.score = 0; 
         // Track total questions
         this.totalQuestions = 0; 
+        this.startTime = null;
+        this.endTime = null;
+        this.timerInterval = null;
     }
     // Set up and initialize DOM elements used in the quiz
     initializeDOMElements() {
@@ -97,9 +100,36 @@ class Quiz {
             // Ensure Quit button is visible
             this.elements.quitButton.style.display = 'block'; 
             this.displayQuestion();
+            // Start the timer
+            this.startTimer(); 
         } else {
             alert('Please add at least four questions!');
         }
+    }
+    // Start the timer
+    startTimer() {
+        this.startTime = new Date();
+        this.timerInterval = setInterval(() => {
+            const currentTime = new Date();
+            this.displayTime(currentTime - this.startTime);
+        }, 1000); // Update the timer every second
+    }
+    // Stop the timer and calculate the time
+    stopTimer() {
+        this.endTime = new Date();
+        // Stop updating the timer
+        clearInterval(this.timerInterval); 
+        return this.endTime - this.startTime;
+    }
+    // Display the time in a human-readable format
+    displayTime(elapsedTime) {
+        const totalSeconds = Math.floor(elapsedTime / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const formattedTime = `Time: ${minutes} minutes and ${seconds} seconds`;
+        // Display this time
+        document.getElementById('timer').textContent = formattedTime;
+        return formattedTime; 
     }
     // Display the current question and its options
     displayQuestion() {
@@ -167,7 +197,12 @@ class Quiz {
         this.elements.quizEndDisplay.style.display = 'block';
         this.elements.tryAgainButton.style.display = 'block';
         this.elements.quitButton.style.display = 'block';
+        // Stop the timer and get the total time
+        const totalTime = this.stopTimer(); 
+        const formattedTime = this.displayTime(totalTime); 
+        // Final score
         this.elements.finalScore.textContent = `Score: ${this.score} / ${this.totalQuestions}`;
+
         this.saveQuestionsToStorage();
     }
     // Restart the quiz, resetting necessary states
