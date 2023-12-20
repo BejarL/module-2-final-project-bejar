@@ -82,12 +82,15 @@ body {
   cursor: pointer;
   transition: all 0.3s;
 }
-#add-question:hover, #start-quiz:hover, #next-question:hover, .option-button:hover {
+#add-question:hover, #start-quiz:hover, #next-question:hover {
   background: #eaa588;
   color: #333;
 }
-
-#quit, #try-again {
+#final-score {
+  font-size: 25px;
+  text-align: center;
+}
+#try-again, #quit, #quit-end {
   background: #eaa588;
   width: 100px;
   border-radius: 10px;

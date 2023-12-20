@@ -21,6 +21,7 @@
 
         <!-- Quiz container -->
         <div id="quiz-container" style="display: none;">
+
             <div id="question">Question will go here</div>
             
             <!-- Options buttons -->
@@ -32,9 +33,15 @@
             </div>
 
             <div id="result" style="display: none;"></div>
-            <button id="try-again" style="display: none;">Try Again</button>
-            <button id="quit">Quit</button>
             <button id="next-question" style="display: none;">Next</button>
+            <button id="quit">Quit</button>
+        </div>
+
+        <!-- Quiz end display, hidden initially -->
+        <div id="quiz-end-display" style="display: none;">
+            <div id="final-score"></div>
+            <button id="try-again">Try Again</button>
+            <button id="quit-end" class="quiz-quit-button">Quit</button> <!-- Quit button at the end -->
         </div>
     </div>
 
